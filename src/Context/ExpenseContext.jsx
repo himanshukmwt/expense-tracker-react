@@ -3,13 +3,17 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 const ExpenseContext=createContext();
 
 const initialState = {
-  entries: [
-    { id: 1, type: 'income', title: 'Salary', amount: 85000, category: 'Salary', date: '2026-06-01', notes: '' },
-    { id: 2, type: 'expense', title: 'Swiggy order', amount: 480, category: 'Food', date: '2026-06-06', notes: '' },
-    { id: 3, type: 'expense', title: 'Uber ride', amount: 220, category: 'Transport', date: '2026-06-05', notes: '' },
-    { id: 4, type: 'expense', title: 'Electricity bill', amount: 1840, category: 'Bills', date: '2026-06-03', notes: '' },
-    { id: 5, type: 'expense', title: 'Amazon shopping', amount: 3200, category: 'Shopping', date: '2026-06-04', notes: '' },
-    { id: 6, type: 'expense', title: 'Gym membership', amount: 2000, category: 'Health', date: '2026-06-02', notes: '' },
+   entries: [
+    { id: 1, type: 'income',  title: 'Salary',           amount: 85000, category: 'Salary',        date: '2026-06-01', notes: '' },
+    { id: 2, type: 'expense', title: 'Swiggy order',      amount: 480,   category: 'Food',          date: '2026-06-06', notes: '' },
+    { id: 3, type: 'expense', title: 'Uber ride',         amount: 220,   category: 'Transport',     date: '2026-06-05', notes: '' },
+    { id: 4, type: 'expense', title: 'Electricity bill',  amount: 1840,  category: 'Bills',         date: '2026-06-03', notes: '' },
+    { id: 5, type: 'expense', title: 'Amazon shopping',   amount: 3200,  category: 'Shopping',      date: '2026-05-20', notes: '' },
+    { id: 6, type: 'expense', title: 'Gym membership',    amount: 2000,  category: 'Health',        date: '2026-05-15', notes: '' },
+    { id: 7, type: 'expense', title: 'Netflix',           amount: 649,   category: 'Entertainment', date: '2026-04-10', notes: '' },
+    { id: 8, type: 'expense', title: 'Books',             amount: 1200,  category: 'Education',     date: '2026-03-22', notes: '' },
+    { id: 9, type: 'expense', title: 'Medicines',         amount: 850,   category: 'Health',        date: '2026-02-14', notes: '' },
+    { id: 10, type: 'expense', title: 'Petrol',           amount: 1500,  category: 'Transport',     date: '2026-01-30', notes: '' },
   ],
   budgets: {
     Food: 15000,

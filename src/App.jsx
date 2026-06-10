@@ -11,7 +11,7 @@ function App() {
         
         <Sidebar />
 
-        <main className="flex-1 p-6 text-white">
+        <main className="flex-1 p-6 text-white ml-60">
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
