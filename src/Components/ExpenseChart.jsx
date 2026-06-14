@@ -87,6 +87,7 @@ function ExpenseChart({ entries, monthEntries }) {
               tickFormatter={(v) => "\u20B9" + v / 1000 + "k"}
             />
             <Tooltip
+             cursor={{ fill: "transparent" }}
               formatter={(v) => ["\u20B9" + v.toLocaleString("en-IN"), "Spent"]}
               contentStyle={{
                 background: "#1e293b",
@@ -95,7 +96,7 @@ function ExpenseChart({ entries, monthEntries }) {
                 color: "#f1f5f9",
               }}
             />
-            <Bar dataKey="amount" fill="#6366f1" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="amount" fill="#6366f1" radius={[4, 4, 0, 0]}/>
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -2,6 +2,7 @@ import { useExpense } from "../Context/ExpenseContext";
 import KpiCard from "../Components/KpiCard";
 import { TrendingUp, TrendingDown, Wallet, PieChart } from "lucide-react";
 import ExpenseChart from '../components/ExpenseChart'
+import RecentTransactions from "../Components/RecentTransactions";
 
 function Dashboard() {
   const { entries, budgets, getSummary } = useExpense();
@@ -75,6 +76,7 @@ function Dashboard() {
        <div className="flex flex-col gap-4">
         <div className="xl:col-span-2">
           <ExpenseChart entries={entries} monthEntries={monthEntries} />
+           <RecentTransactions entries={entries} />
         </div>
       </div>
     </div>
