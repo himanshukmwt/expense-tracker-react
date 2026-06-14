@@ -1,11 +1,14 @@
 import { useExpense } from "../Context/ExpenseContext";
+import {useState} from 'react';
 import KpiCard from "../Components/KpiCard";
 import { TrendingUp, TrendingDown, Wallet, PieChart } from "lucide-react";
 import ExpenseChart from '../components/ExpenseChart'
 import RecentTransactions from "../Components/RecentTransactions";
+import AddExpenseModal from "../Components/AddExpenseModal";
 
 function Dashboard() {
   const { entries, budgets, getSummary } = useExpense();
+  const [modalOpen,setModalOpen]=useState(false);
 
   const currentMonth = new Date().toISOString().slice(0, 7);
   const monthEntries = entries.filter((e) => e.date.startsWith(currentMonth));
@@ -31,7 +34,9 @@ function Dashboard() {
             })}
           </p>
         </div>
-        <button className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg transition-colors cursor-pointer">
+        <button
+         onClick={()=>setModalOpen(true)}
+         className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg transition-colors cursor-pointer">
           + Add Expense
         </button>
       </div>
@@ -78,6 +83,8 @@ function Dashboard() {
           <ExpenseChart entries={entries} monthEntries={monthEntries} />
            <RecentTransactions entries={entries} />
         </div>
+         {/* Modal */}
+      <AddExpenseModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       </div>
     </div>
   );

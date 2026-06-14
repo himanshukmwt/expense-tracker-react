@@ -126,3 +126,4 @@ export function ExpenseProvider({ children}){
 export function useExpense() {
   return useContext(ExpenseContext)
 }
+  
