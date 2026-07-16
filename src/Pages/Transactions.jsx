@@ -4,7 +4,9 @@ import AddExpenseModal from '../Components/AddExpenseModal'
 import EditExpenseModal from '../Components/EditExpenseModal'
 import {
   Search, Trash2, Pencil, Utensils, Car, ShoppingBag,
-  Zap, Heart, Clapperboard, BookOpen, Briefcase, Package
+  Zap, Heart, Clapperboard, BookOpen, Briefcase, Package,
+  ArrowLeft,
+  ArrowRight
 } from 'lucide-react'
 
 const CATEGORIES = ['Food', 'Transport', 'Shopping', 'Bills', 'Health', 'Entertainment', 'Education', 'Other']
@@ -221,7 +223,46 @@ className='flex items-center gap bg-indigo-500 hover:bg-indigo-600 text-white te
         )}
       </div>
 
-            
+             {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <p className="text-slate-500 text-sm">
+            Showing {(page - 1) * ITEMS_PER_PAGE + 1}–{Math.min(page * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors"
+            >
+             
+              <ArrowLeft size={20} /> Prev
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                onClick={() => setPage(i + 1)}
+                className={`w-8 h-8 rounded-lg text-sm transition-colors ${
+                  page === i + 1
+                    ? 'bg-indigo-500 text-white'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors"
+            >
+              Next <ArrowRight size={20}/>
+              
+            </button>
+          </div>
+        </div>
+      )}
+
              
              
              
