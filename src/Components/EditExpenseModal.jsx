@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
-import { useExpense } from '../context/ExpenseContext'
+import { useExpense } from '../Context/ExpenseContext'
 
 const CATEGORIES = ['Food', 'Transport', 'Shopping', 'Bills', 'Health', 'Entertainment', 'Education', 'Other']
 
