@@ -19,8 +19,8 @@ function Sidebar() {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <aside className="w-56 min-h-screen  flex flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0 ">
-
+    // <aside className="w-56 min-h-screen  flex flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0 ">
+    <aside className="hidden md:flex md:w-56 min-h-screen flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0">
       {/* Logo */}
       <div className="flex items-center gap-3 px-2 pb-6">
         <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">

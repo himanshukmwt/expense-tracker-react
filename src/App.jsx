@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import Transactions from './pages/Transactions'
 import Budget from './pages/Budget'
+import MobileNavbar from './Components/MobileNavbar'
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <div className="flex min-h-screen bg-[#0f172a]">
         
         <Sidebar />
+        <MobileNavbar />
 
-        <main className="flex-1 p-6 text-white ml-60">
+        <main className="flex-1 p-6 text-white md:ml-56">
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
