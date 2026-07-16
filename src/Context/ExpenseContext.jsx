@@ -2,7 +2,9 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 
 const ExpenseContext=createContext();
 
-const initialState = {
+const savedData = localStorage.getItem('expenseData')
+
+const initialState =savedData ? JSON.parse(savedData) : {
    entries: [
     { id: 1, type: 'income',  title: 'Salary',           amount: 85000, category: 'Salary',        date: '2026-06-01', notes: '' },
     { id: 2, type: 'expense', title: 'Swiggy order',      amount: 480,   category: 'Food',          date: '2026-06-06', notes: '' },
@@ -65,12 +67,6 @@ function expenseReducer(state, action) {
 export function ExpenseProvider({ children}){
     const[state, dispatch]=useReducer(expenseReducer, initialState)
 
-    useEffect(()=>{
-        const saved = localStorage.getItem('expenseData')
-        if(saved){
-            dispatch({type:'LOAD_DATA', payload: JSON.parse(saved)})
-        }
-    },[])
 
       useEffect(() => {
     localStorage.setItem('expenseData', JSON.stringify(state))
