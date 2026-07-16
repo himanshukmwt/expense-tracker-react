@@ -36,12 +36,12 @@ function Dashboard() {
         </div>
         <button
          onClick={()=>setModalOpen(true)}
-         className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg transition-colors cursor-pointer">
+         className="w-full sm:w-auto flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg transition-colors cursor-pointer">
           + Add Expense
         </button>
       </div>
 
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <KpiCard
           title="Total Income"
           value={fmt(income)}

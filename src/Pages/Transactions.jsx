@@ -114,14 +114,14 @@ function Transactions() {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-semibold text-white">All Transactions</h1>
           <p className="text-slate-400 text-sm mt-1">{filtered.length}</p>
         </div>
         <button
           onClick={() => setAddModalOpen(true)}
-          className="flex items-center gap bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-xl transaction-colors"
+          className="w-full sm:w-auto flex items-center gap bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-xl transaction-colors cursor-pointer"
         >
           +Add Expense
         </button>
@@ -151,7 +151,7 @@ function Transactions() {
             setTypeFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none"
+          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
         >
           <option value="">All Types</option>
           <option value="expense">Expense</option>
@@ -165,7 +165,7 @@ function Transactions() {
             setCatFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none"
+          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
         >
           <option value="">All Categories</option>
           {CATEGORIES.map((c) => (
@@ -182,7 +182,7 @@ function Transactions() {
             setMonthFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none"
+          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
         >
           <option value="">All Months</option>
           {monthOptions.map((m) => (
@@ -202,107 +202,180 @@ function Transactions() {
               setMonthFilter("");
               setPage(1);
             }}
-            className="text-slate-400 hover:text-red-400 text-sm px-3 py-2 border border-white/5 rounded-lg transition-colors"
+            className="text-slate-400 hover:text-red-400 text-sm px-3 py-2 border border-white/5 rounded-lg transition-colors cursor-pointer"
           >
             Clear
           </button>
         )}
       </div>
-      {/* Table Header */}
-      <div className="bg-slate-800/60 border border-white/5 rounded-2xl overflow-hidden">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3 border-b border-white/5">
-          {["Title", "Category", "Date", "Amount", "Actions"].map((h) => (
-            <p
-              key={h}
-              className="text-[11px] text-slate-500 uppercase tracking-wider"
-            >
-              {h}
-            </p>
-          ))}
-        </div>
 
-        {paginated.length === 0 ? (
-          <div className="text-center py-16 text-slate-500 text-sm">
-            No transactions found
-          </div>
-        ) : (
-          paginated.map((e) => {
-            const Icon = CAT_ICONS[e.category] || Package;
-            const color = CAT_COLORS[e.category] || "#B4B2A9";
-            return (
-              <div
-                key={e.id}
-                className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3.5 border-b border-white/5 hover:bg-slate-700/30 transition-colors items-center"
-              >
-                {/* Title */}
+      {/* Mobile Cards */}
+      <div className="md:hidden flex flex-col gap-3">
+        {paginated.map((e) => {
+          const Icon = CAT_ICONS[e.category] || Package;
+          const color = CAT_COLORS[e.category] || "#B4B2A9";
+
+          return (
+            <div
+              key={e.id}
+              className="bg-slate-800/60 border border-white/5 rounded-2xl p-4"
+            >
+              <div className="flex justify-between items-start">
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
                     style={{ background: color + "22" }}
                   >
-                    <Icon size={14} style={{ color }} />
+                    <Icon size={16} style={{ color }} />
                   </div>
+
                   <div>
-                    <p className="text-slate-200 text-sm font-medium truncate">
-                      {e.title}
-                    </p>
-                    <p className="text-slate-500 text-xs capitalize">
-                      {e.type}
+                    <p className="text-white font-medium">{e.title}</p>
+                    <p className="text-slate-500 text-xs">
+                      {new Date(e.date).toLocaleDateString("en-IN")}
                     </p>
                   </div>
                 </div>
 
-                {/* Category Badge */}
-                <div>
-                  <span
-                    className="text-[11px] px-2.5 py-1 rounded-full font-medium"
-                    style={{ background: color + "22", color }}
-                  >
-                    {e.category}
-                  </span>
-                </div>
-
-                {/* Date */}
-                <p className="text-slate-400 text-sm">
-                  {new Date(e.date).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-
-                {/* Amount */}
                 <p
-                  className={`text-sm font-medium ${e.type === "income" ? "text-green-400" : "text-red-400"}`}
+                  className={`font-semibold ${
+                    e.type === "income" ? "text-green-400" : "text-red-400"
+                  }`}
                 >
                   {e.type === "income" ? "+" : "-"}₹
                   {e.amount.toLocaleString("en-IN")}
                 </p>
+              </div>
 
-                {/* Actions */}
+              {/* Bottom Row */}
+              <div className="flex justify-between items-center mt-4">
+                <span
+                  className="text-xs px-3 py-1 rounded-full"
+                  style={{
+                    background: color + "22",
+                    color: color,
+                  }}
+                >
+                  {e.category}
+                </span>
+
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditEntry(e)}
-                    className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-indigo-500/20 hover:text-indigo-400 flex items-center justify-center text-slate-400 transition-colors"
+                    className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center cursor-pointer"
                   >
-                    <Pencil size={13} />
+                    <Pencil size={14} />
                   </button>
+
                   <button
                     onClick={() => setDeleteConfirm(e.id)}
-                    className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-slate-400 transition-colors"
+                    className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center cursor-pointer"
                   >
-                    <Trash2 size={13} />
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </div>
-            );
-          })
-        )}
+            </div>
+          );
+        })}
+      </div>
+      {/* Table Header */}
+      <div className=" hidden md:block">
+        <div className="bg-slate-800/60 border border-white/5 rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3 border-b border-white/5">
+            {["Title", "Category", "Date", "Amount", "Actions"].map((h) => (
+              <p
+                key={h}
+                className="text-[11px] text-slate-500 uppercase tracking-wider"
+              >
+                {h}
+              </p>
+            ))}
+          </div>
+
+          {paginated.length === 0 ? (
+            <div className="text-center py-16 text-slate-500 text-sm">
+              No transactions found
+            </div>
+          ) : (
+            paginated.map((e) => {
+              const Icon = CAT_ICONS[e.category] || Package;
+              const color = CAT_COLORS[e.category] || "#B4B2A9";
+              return (
+                <div
+                  key={e.id}
+                  className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3.5 border-b border-white/5 hover:bg-slate-700/30 transition-colors items-center"
+                >
+                  {/* Title */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: color + "22" }}
+                    >
+                      <Icon size={14} style={{ color }} />
+                    </div>
+                    <div>
+                      <p className="text-slate-200 text-sm font-medium truncate">
+                        {e.title}
+                      </p>
+                      <p className="text-slate-500 text-xs capitalize">
+                        {e.type}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Category Badge */}
+                  <div>
+                    <span
+                      className="text-[11px] px-2.5 py-1 rounded-full font-medium"
+                      style={{ background: color + "22", color }}
+                    >
+                      {e.category}
+                    </span>
+                  </div>
+
+                  {/* Date */}
+                  <p className="text-slate-400 text-sm">
+                    {new Date(e.date).toLocaleDateString("en-IN", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+
+                  {/* Amount */}
+                  <p
+                    className={`text-sm font-medium ${e.type === "income" ? "text-green-400" : "text-red-400"}`}
+                  >
+                    {e.type === "income" ? "+" : "-"}₹
+                    {e.amount.toLocaleString("en-IN")}
+                  </p>
+
+                  {/* Actions */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setEditEntry(e)}
+                      className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-indigo-500/20 hover:text-indigo-400 flex items-center justify-center text-slate-400 transition-colors cursor-pointer"
+                    >
+                      <Pencil size={13} />
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirm(e.id)}
+                      className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-slate-400 transition-colors cursor-pointer"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-slate-500 text-sm">
             Showing {(page - 1) * ITEMS_PER_PAGE + 1}–
             {Math.min(page * ITEMS_PER_PAGE, filtered.length)} of{" "}
@@ -312,7 +385,7 @@ function Transactions() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors"
+              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors cursor-pointer"
             >
               <ArrowLeft size={20} /> Prev
             </button>
@@ -320,7 +393,7 @@ function Transactions() {
               <button
                 key={i + 1}
                 onClick={() => setPage(i + 1)}
-                className={`w-8 h-8 rounded-lg text-sm transition-colors ${
+                className={`w-8 h-8 rounded-lg text-sm transition-colors cursor-pointer ${
                   page === i + 1
                     ? "bg-indigo-500 text-white"
                     : "bg-slate-800 text-slate-400 hover:bg-slate-700"
@@ -332,7 +405,7 @@ function Transactions() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors"
+              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors cursor-pointer"
             >
               Next <ArrowRight size={20} />
             </button>
@@ -350,13 +423,13 @@ function Transactions() {
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 py-2 rounded-lg border border-white/10 text-slate-400 hover:bg-slate-700 text-sm transition-colors"
+                className="flex-1 py-2 rounded-lg border border-white/10 text-slate-400 hover:bg-slate-700 text-sm transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
-                className="flex-1 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm transition-colors"
+                className="flex-1 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm transition-colors cursor-pointer"
               >
                 Delete
               </button>

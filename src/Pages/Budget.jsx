@@ -59,7 +59,7 @@ function Budget() {
     <div className="flex flex-col gap-6">
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-semibold text-white">Budget Tracker</h1>
           <p className="text-slate-400 text-sm mt-1">
@@ -68,7 +68,7 @@ function Budget() {
         </div>
         <button
           onClick={handleSave}
-          className={`flex items-center gap-2 text-sm px-4 py-2 rounded-lg transition-all ${
+          className={`w-full sm:w-auto flex items-center justify-center gap-2 text-sm px-4 py-2 rounded-lg transition-all cursor-pointer ${
             saved
               ? 'bg-green-500/20 text-green-400 border border-green-500/30'
               : 'bg-indigo-500 hover:bg-indigo-600 text-white'
@@ -81,7 +81,7 @@ function Budget() {
 
       {/* Overall Summary Card */}
       <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5">
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
           <div>
             <p className="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Total Budget</p>
             <p className="text-2xl font-semibold text-white">{fmt(totalBudget)}</p>
@@ -129,7 +129,8 @@ function Budget() {
               key={cat.name}
               className="bg-slate-800/60 border border-white/5 rounded-2xl p-5"
             >
-              <div className="flex items-center justify-between mb-4">
+              
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -152,7 +153,7 @@ function Budget() {
                     value={localBudgets[cat.name] || ''}
                     onChange={e => handleBudgetChange(cat.name, e.target.value)}
                     placeholder="0"
-                    className="w-24 bg-slate-900 border border-white/8 rounded-lg px-2.5 py-1.5 text-slate-200 text-sm text-right focus:outline-none focus:border-indigo-500 transition-colors"
+                    className="w-20 sm:w-24 bg-slate-900 border border-white/8 rounded-lg px-2.5 py-1.5 text-slate-200 text-sm text-right focus:outline-none focus:border-indigo-500 transition-colors"
                   />
                 </div>
               </div>

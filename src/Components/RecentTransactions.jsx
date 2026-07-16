@@ -25,7 +25,7 @@ function RecentTransactions({entries}){
     const recent=[...entries].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,7);
 
     return(
-        <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5 h-full">
+        <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5 h-full mt-4">
              <h3 className="text-sm font-medium text-slate-300 mb-4">Recent Transactions</h3>
 
              {recent.length=== 0 ?(

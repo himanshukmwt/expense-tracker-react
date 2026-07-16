@@ -13,7 +13,7 @@ function App() {
         <Sidebar />
         <MobileNavbar />
 
-        <main className="flex-1 p-6 text-white md:ml-56">
+        <main className="flex-1 p-4 md:p-6 text-white pt-20 md:pt-6 md:ml-56">
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />

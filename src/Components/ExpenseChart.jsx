@@ -102,7 +102,7 @@ function ExpenseChart({ entries, monthEntries }) {
       </div>
 
       {/* Pie Chart */}
-      <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5">
+      <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5 ">
         <h3 className="text-sm font-medium text-slate-300 mb-4">
           Category Breakdown
         </h3>
