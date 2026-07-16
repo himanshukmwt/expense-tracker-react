@@ -112,7 +112,7 @@ if (!form.date) {
               name="title"
               value={form.title}
               onChange={handleChange}
-              placeholder="e.g. Lunch at café"
+              placeholder="e.g. Lunch at cafe"
               className="w-full bg-slate-900 border border-white/8 rounded-lg px-3 py-2.5 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
@@ -178,7 +178,7 @@ if (!form.date) {
           {/* Error */}
           {error && (
             <p className="text-red-400 text-xs bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-              ⚠ {error}
+               {error}
             </p>
           )}
 

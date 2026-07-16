@@ -143,7 +143,94 @@ className='flex items-center gap bg-indigo-500 hover:bg-indigo-600 text-white te
           </button>
         )}
       </div>
-    </div>
+              {/* Table Header */}
+             <div className="bg-slate-800/60 border border-white/5 rounded-2xl overflow-hidden">
+              <div className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3 border-b border-white/5">
+          {['Title', 'Category', 'Date', 'Amount', 'Actions'].map(h => (
+            <p key={h} className="text-[11px] text-slate-500 uppercase tracking-wider">{h}</p>
+          ))}
+        </div>
+
+           {paginated.length === 0 ? (
+          <div className="text-center py-16 text-slate-500 text-sm">
+            No transactions found
+          </div>
+        ) : (
+          paginated.map(e => {
+            const Icon = CAT_ICONS[e.category] || Package
+            const color = CAT_COLORS[e.category] || '#B4B2A9'
+            return (
+              <div
+                key={e.id}
+                className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3.5 border-b border-white/5 hover:bg-slate-700/30 transition-colors items-center"
+              >
+                {/* Title */}
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: color + '22' }}
+                  >
+                    <Icon size={14} style={{ color }} />
+                  </div>
+                  <div>
+                    <p className="text-slate-200 text-sm font-medium truncate">{e.title}</p>
+                    <p className="text-slate-500 text-xs capitalize">{e.type}</p>
+                  </div>
+                </div>
+
+                {/* Category Badge */}
+                <div>
+                  <span
+                    className="text-[11px] px-2.5 py-1 rounded-full font-medium"
+                    style={{ background: color + '22', color }}
+                  >
+                    {e.category}
+                  </span>
+                </div>
+
+                {/* Date */}
+                <p className="text-slate-400 text-sm">
+                  {new Date(e.date).toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                  })}
+                </p>
+
+                {/* Amount */}
+                <p className={`text-sm font-medium ${e.type === 'income' ? 'text-green-400' : 'text-red-400'}`}>
+                  {e.type === 'income' ? '+' : '-'}₹{e.amount.toLocaleString('en-IN')}
+                </p>
+
+                {/* Actions */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setEditEntry(e)}
+                    className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-indigo-500/20 hover:text-indigo-400 flex items-center justify-center text-slate-400 transition-colors"
+                  >
+                    <Pencil size={13} />
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirm(e.id)}
+                    className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-slate-400 transition-colors"
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </div>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+            
+             
+             
+             
+             
+             </div>
+      
+
+
+    // </div>
   )
 }
 export default Transactions
