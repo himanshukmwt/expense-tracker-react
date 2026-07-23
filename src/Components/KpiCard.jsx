@@ -1,3 +1,5 @@
+import { useExpense } from "../Context/ExpenseContext";
+
 const colorMap = {
   green: {
     icon: "bg-green-500/10 text-green-400",
@@ -13,17 +15,23 @@ const colorMap = {
   },
   amber: {
     icon: "bg-amber-500/10 text-amber-400",
-    value: "text-white",
+    value: "text-yellow-400",
   },
 };
 
 function KpiCard({ title, value, sub, icon: Icon, color, progress }) {
   const c = colorMap[color];
+  const { darkMode } = useExpense()
 
   return (
-    <div className="bg-slate-800/60 border border-white/5 rounded-2xl px-5 py-3 flex flex-col gap-3">
+    <div className={` rounded-2xl px-5 py-3 flex flex-col gap-3 transition-colors ${darkMode
+        ? 'bg-slate-800/60 border border-white/9'
+        : 'bg-white border border-slate-200 shadow-sm'
+    }`}>
       <div className="flex items-center justify-between">
-        <p className="text-slate-400 text-xs uppercase tracking-wider">
+        <p className={`text-xs uppercase tracking-wider ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>
           {title}
         </p>
         <div
@@ -35,10 +43,10 @@ function KpiCard({ title, value, sub, icon: Icon, color, progress }) {
 
       <p className={`text-2xl font-semibold ${c.value}`}>{value}</p>
 
-      <p className="text-slate-500 text-xs">{sub}</p>
+      <p className={`text-xs ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>{sub}</p>
 
       {progress !== undefined && (
-        <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+        <div className={`h-1.5 bg-slate-700 rounded-full overflow-hidden ${darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}>
           <div
             className={`h-full rounded-full transitin-all ${progress > 90 ? "bg-red-500" : progress > 70 ? "bg-amber-500" : "bg-green-500"}`}
             style={{ width: `${Math.min(progress, 100)}%` }}

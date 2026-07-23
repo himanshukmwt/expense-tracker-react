@@ -7,7 +7,7 @@ import RecentTransactions from "../Components/RecentTransactions";
 import AddExpenseModal from "../Components/AddExpenseModal";
 
 function Dashboard() {
-  const { entries, budgets, getSummary } = useExpense();
+  const { entries, budgets, getSummary, darkMode } = useExpense();
   const [modalOpen,setModalOpen]=useState(false);
 
   const currentMonth = new Date().toISOString().slice(0, 7);
@@ -24,8 +24,8 @@ function Dashboard() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-semibold text-white">Good morning </h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <h1 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-slate-900'}`}>Good morning </h1>
+          <p className={`text-sm mt-1 ${darkMode ? 'text-slate-400' : 'text-slate-900'}`}>
             {new Date().toLocaleDateString("en-IN", {
               weekday: "long",
               month: "long",

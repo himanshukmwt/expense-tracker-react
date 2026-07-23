@@ -4,10 +4,9 @@ import {
   ArrowLeftRight,
   Wallet,
   Moon,
-  Settings,
   TrendingUp,
 } from "lucide-react";
-import { useState } from "react";
+import { useExpense } from "../Context/ExpenseContext";
 
 const navLinks = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -16,17 +15,20 @@ const navLinks = [
 ];
 
 function Sidebar() {
-  const [darkMode, setDarkMode] = useState(true);
+  const { darkMode, setDarkMode } = useExpense()
 
   return (
-    // <aside className="w-56 min-h-screen  flex flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0 ">
-    <aside className="hidden md:flex md:w-56 min-h-screen flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0">
+    <aside className={`hidden md:flex md:w-56 min-h-screen flex-col px-3 py-4 border-r border-white/10 fixed left-0 top-0  ${
+  darkMode
+    ? 'bg-[#0f172a] border-white/5'
+    : 'bg-white border-slate-200'
+}`}>
       {/* Logo */}
       <div className="flex items-center gap-3 px-2 pb-6">
         <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
           <TrendingUp size={16} className="text-white" />
         </div>
-        <span className="text-white font-semibold text-sm tracking-tight">
+        <span className={` font-semibold text-sm tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
           ExpenseTracker
         </span>
       </div>
@@ -46,11 +48,10 @@ function Sidebar() {
               to={link.path}
               className={({ isActive }) => {
                 return `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-150
-                ${
-                  isActive
-                    ? "bg-slate-800 text-white font-medium"
-                    : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
-                }`;
+                 ${isActive
+      ? darkMode ? 'bg-slate-800 text-white' : 'bg-indigo-50 text-indigo-600 font-medium'
+      : darkMode ? 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700'
+    }`
               }}
             >
               <Icon size={16} />
@@ -65,8 +66,8 @@ function Sidebar() {
 
         {/* Dark Mode Toggle */}
         <div className="flex items-center gap-3 px-3 py-2.5">
-          <Moon size={16} className="text-slate-400" />
-          <span className="text-slate-400 text-sm">Dark Mode</span>
+          <Moon size={16} className={darkMode ? 'text-slate-400' : 'text-slate-800'} />
+          <span className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-800'}`}>Dark Mode</span>
           <button
             onClick={() => setDarkMode(!darkMode)}
             className={`ml-auto w-8 h-4 rounded-full transition-colors duration-200 relative

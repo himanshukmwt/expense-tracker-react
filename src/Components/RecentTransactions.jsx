@@ -2,6 +2,7 @@ import {
   Utensils, Car, ShoppingBag, Zap, Heart,
   Clapperboard, BookOpen, Briefcase, Package
 } from 'lucide-react'
+import { useExpense } from '../Context/ExpenseContext';
 
 const CAT_COLORS = {
   Food: '#EF9F27', Transport: '#85B7EB', Shopping: '#ED93B1',
@@ -23,13 +24,21 @@ const CAT_ICONS = {
 
 function RecentTransactions({entries}){
     const recent=[...entries].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,7);
+    const {darkMode}=useExpense()
 
     return(
-        <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5 h-full mt-4">
-             <h3 className="text-sm font-medium text-slate-300 mb-4">Recent Transactions</h3>
+        <div className={`rounded-2xl p-5 h-full mt-4 ${darkMode
+        ? 'bg-slate-800/60 border border-white/5'
+        : 'bg-white border border-slate-200 shadow-sm'
+    }`}>
+             <h3 className={`text-sm font-medium text-slate-300 mb-4  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>Recent Transactions</h3>
 
              {recent.length=== 0 ?(
-                <p className="text-slate-500 text-sm text-center py-8">No transactions yet</p>
+                <p className={`text-slate-500 text-sm text-center py-8  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>No transactions yet</p>
              ):(
              <div className="flex flex-col gap-3">
                 {recent.map(e=>{
@@ -45,7 +54,9 @@ function RecentTransactions({entries}){
                   <Icon size={16} style={{ color: color }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-slate-200 text-sm font-medium truncate">{e.title}</p>
+                  <p className={` text-sm font-medium truncate  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>{e.title}</p>
                   <p className="text-slate-500 text-xs">{e.category} · {e.date}</p>
                 </div>
                  <p className={`text-sm font-medium flex-shrink-0 ${e.type === 'income' ? 'text-green-400' : 'text-red-400'}`}>

@@ -17,7 +17,7 @@ const CATEGORIES = [
 ]
 
 function Budget() {
-  const { entries, budgets, updateBudget } = useExpense()
+  const { entries, budgets, updateBudget, darkMode } = useExpense()
   const [localBudgets, setLocalBudgets] = useState({ ...budgets })
   const [saved, setSaved] = useState(false)
 
@@ -61,8 +61,8 @@ function Budget() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-semibold text-white">Budget Tracker</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <h1 className={`text-xl font-semibold ${darkMode ? 'text-white':'text-gray-900'}`}>Budget Tracker</h1>
+          <p className={ `text-sm mt-1 ${darkMode ? "text-slate-400" : 'text-slate-500'}`}>
             Set monthly limits per category
           </p>
         </div>
@@ -80,11 +80,11 @@ function Budget() {
       </div>
 
       {/* Overall Summary Card */}
-      <div className="bg-slate-800/60 border border-white/5 rounded-2xl p-5">
+      <div className={`rounded-2xl p-5 ${darkMode ? 'bg-slate-800/60 border border-white/5' : 'bg-white border border-slate-200/5'}`}>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
           <div>
             <p className="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Total Budget</p>
-            <p className="text-2xl font-semibold text-white">{fmt(totalBudget)}</p>
+            <p className={`text-2xl font-semibold ${darkMode ? 'text-white' : 'text-gray-600'}`}>{fmt(totalBudget)}</p>
           </div>
           <div>
             <p className="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Spent</p>
@@ -99,9 +99,9 @@ function Budget() {
           <div className="flex flex-col justify-center">
             <div className="flex justify-between mb-2">
               <span className="text-[11px] text-slate-500">Overall used</span>
-              <span className="text-[11px] text-white font-medium">{overallPct}%</span>
+              <span className={`text-[11px]  font-medium ${darkMode? 'text-white':'text-gray-700'}`}>{overallPct}%</span>
             </div>
-            <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div className={`h-2  rounded-full overflow-hidden ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`}>
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
@@ -127,7 +127,7 @@ function Budget() {
           return (
             <div
               key={cat.name}
-              className="bg-slate-800/60 border border-white/5 rounded-2xl p-5"
+              className={`rounded-2xl p-5 ${darkMode ? 'bg-slate-800/60 border border-white/5' : 'bg-white border border-slate-100/5'}`}
             >
               
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
@@ -139,7 +139,7 @@ function Budget() {
                     <Icon size={16} style={{ color: cat.color }} />
                   </div>
                   <div>
-                    <p className="text-slate-200 text-sm font-medium">{cat.name}</p>
+                    <p className={`text-sm font-medium ${darkMode ? 'text-slate-200' :'text-slate-600'}`}>{cat.name}</p>
                     <p className="text-slate-500 text-xs">
                       {limit > 0 ? `${pct}% used` : 'No limit set'}
                     </p>
@@ -153,12 +153,13 @@ function Budget() {
                     value={localBudgets[cat.name] || ''}
                     onChange={e => handleBudgetChange(cat.name, e.target.value)}
                     placeholder="0"
-                    className="w-20 sm:w-24 bg-slate-900 border border-white/8 rounded-lg px-2.5 py-1.5 text-slate-200 text-sm text-right focus:outline-none focus:border-indigo-500 transition-colors"
+                    className={`w-20 sm:w-24  rounded-lg px-2.5 py-1.5  text-sm text-right focus:outline-none focus:border-indigo-500 transition-colors 
+                      ${darkMode ? 'bg-slate-900 border border-white/8 text-slate-200' : 'text-slate-600 bg-slate-100 border border-white/8'}`}
                   />
                 </div>
               </div>
 
-              <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mb-3">
+              <div className={`h-1.5  rounded-full overflow-hidden mb-3 ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`}>
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{

@@ -57,7 +57,7 @@ const CAT_ICONS = {
 const ITEMS_PER_PAGE = 8;
 
 function Transactions() {
-  const { entries, deleteEntry } = useExpense();
+  const { entries, deleteEntry, darkMode } = useExpense();
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editEntry, setEditEntry] = useState(null);
   const [search, setSearch] = useState("");
@@ -66,6 +66,7 @@ function Transactions() {
   const [monthFilter, setMonthFilter] = useState("");
   const [page, setPage] = useState(1);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+
 
   let filtered = [...entries].sort(
     (a, b) => new Date(b.date) - new Date(a.date),
@@ -116,8 +117,12 @@ function Transactions() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-semibold text-white">All Transactions</h1>
-          <p className="text-slate-400 text-sm mt-1">{filtered.length}</p>
+          <h1 className={`text-xl font-semibold  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>All Transactions</h1>
+          <p className={` text-sm mt-1  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}>{filtered.length}</p>
         </div>
         <button
           onClick={() => setAddModalOpen(true)}
@@ -130,7 +135,7 @@ function Transactions() {
       {/*filters*/}
       <div className="flex gap-3 flex-wrap">
         {/* Search */}
-        <div className="flex items-center gap-2 bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 flex-1 min-w-40">
+        <div className={`flex items-center gap-2  rounded-lg px-3 py-2 flex-1 min-w-40 ${darkMode ? 'bg-slate-800/60 border border-white/5' : 'bg-white border border-white/5'}`}>
           <Search size={14} className="text-slate-500" />
           <input
             type="text"
@@ -140,7 +145,9 @@ function Transactions() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="bg-transparent text-slate-300 text-sm placeholder:text-slate-600 focus:outline-none w-full"
+            className={`bg-transparent text-sm placeholder:text-slate-600 focus:outline-none w-full  ${
+          darkMode ? 'text-slate-400' : 'text-slate-700'
+        }`}
           />
         </div>
 
@@ -151,7 +158,7 @@ function Transactions() {
             setTypeFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
+          className={` rounded-lg px-3 py-2 text-sm focus:outline-none cursor-pointer ${darkMode ? 'text-slate-300 bg-slate-800/60 border border-white/5' : 'text-slate-600 bg-white border border-white/5'}`}
         >
           <option value="">All Types</option>
           <option value="expense">Expense</option>
@@ -165,7 +172,7 @@ function Transactions() {
             setCatFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
+          className={`rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer ${darkMode ? 'text-slate-300 bg-slate-800/60 border border-white/5' : 'text-slate-600 bg-white border border-white/5'}`}
         >
           <option value="">All Categories</option>
           {CATEGORIES.map((c) => (
@@ -182,7 +189,7 @@ function Transactions() {
             setMonthFilter(e.target.value);
             setPage(1);
           }}
-          className="bg-slate-800/60 border border-white/5 rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer"
+          className={`rounded-lg px-3 py-2 text-slate-300 text-sm focus:outline-none cursor-pointer ${darkMode ? 'text-slate-300 bg-slate-800/60 border border-white/5' : 'text-slate-600 bg-white border border-white/5'}`}
         >
           <option value="">All Months</option>
           {monthOptions.map((m) => (
@@ -202,7 +209,7 @@ function Transactions() {
               setMonthFilter("");
               setPage(1);
             }}
-            className="text-slate-400 hover:text-red-400 text-sm px-3 py-2 border border-white/5 rounded-lg transition-colors cursor-pointer"
+            className={` hover:text-red-400 text-sm px-3 py-2  rounded-lg transition-colors cursor-pointer ${darkMode ? 'text-slate-400 border border-white/5': 'text-slate-600 border border-black/5'}`}
           >
             Clear
           </button>
@@ -218,7 +225,7 @@ function Transactions() {
           return (
             <div
               key={e.id}
-              className="bg-slate-800/60 border border-white/5 rounded-2xl p-4"
+              className={`rounded-2xl p-4  ${darkMode ? 'bg-slate-800/60 border border-white/5': 'bg-white border border-black/5'}`}
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-3">
@@ -279,9 +286,11 @@ function Transactions() {
           );
         })}
       </div>
+
+
       {/* Table Header */}
       <div className=" hidden md:block">
-        <div className="bg-slate-800/60 border border-white/5 rounded-2xl overflow-hidden">
+        <div className={`rounded-2xl overflow-hidden ${darkMode ? 'bg-slate-800/60 border border-white/5' : 'bg-white border border-black/5'}`}>
           <div className="grid grid-cols-[2fr_1fr_1fr_1fr_80px] gap-3 px-5 py-3 border-b border-white/5">
             {["Title", "Category", "Date", "Amount", "Actions"].map((h) => (
               <p
@@ -315,7 +324,7 @@ function Transactions() {
                       <Icon size={14} style={{ color }} />
                     </div>
                     <div>
-                      <p className="text-slate-200 text-sm font-medium truncate">
+                      <p className={`text-sm font-medium truncate ${darkMode ? 'text-slate-200' : 'text-slate-500'}`}>
                         {e.title}
                       </p>
                       <p className="text-slate-500 text-xs capitalize">
@@ -355,13 +364,15 @@ function Transactions() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => setEditEntry(e)}
-                      className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-indigo-500/20 hover:text-indigo-400 flex items-center justify-center text-slate-400 transition-colors cursor-pointer"
+                      className={`w-7 h-7 rounded-lg  hover:text-indigo-400 flex items-center justify-center  transition-colors cursor-pointer
+                        ${darkMode ? 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400': 'text-slate-500 bg-slate-200 hover:bg-indigo-500/20'}`}
                     >
                       <Pencil size={13} />
                     </button>
                     <button
                       onClick={() => setDeleteConfirm(e.id)}
-                      className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-slate-400 transition-colors cursor-pointer"
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer
+                      ${darkMode ? 'bg-slate-700 hover:bg-red-500/60 text-slate-400': 'text-slate-500 bg-slate-200 hover:bg-red-500/60'}`}
                     >
                       <Trash2 size={13} />
                     </button>
@@ -385,7 +396,8 @@ function Transactions() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors cursor-pointer"
+              className={`flex px-3 py-1.5 rounded-lg  text-sm disabled:opacity-40 transition-colors cursor-pointer 
+                ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 ' : 'bg-slate-300 text-slate-600 hover:bg-slate-400'}`}
             >
               <ArrowLeft size={20} /> Prev
             </button>
@@ -396,7 +408,7 @@ function Transactions() {
                 className={`w-8 h-8 rounded-lg text-sm transition-colors cursor-pointer ${
                   page === i + 1
                     ? "bg-indigo-500 text-white"
-                    : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                    : "bg-slate-600 text-slate-400 hover:bg-slate-700"
                 }`}
               >
                 {i + 1}
@@ -405,7 +417,8 @@ function Transactions() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className=" flex px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-sm disabled:opacity-40 hover:bg-slate-700 transition-colors cursor-pointer"
+              className={`flex px-3 py-1.5 rounded-lg  text-sm disabled:opacity-40 transition-colors cursor-pointer
+               ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 ' : 'bg-slate-300 text-slate-500 hover:bg-slate-400'}`}
             >
               Next <ArrowRight size={20} />
             </button>

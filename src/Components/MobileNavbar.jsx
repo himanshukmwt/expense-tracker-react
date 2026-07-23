@@ -1,24 +1,26 @@
 import { Menu, X, TrendingUp } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useExpense } from "../Context/ExpenseContext";
 
 function MobileNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const { darkMode, setDarkMode } = useExpense()
 
   return (
     <>
-      <div className="md:hidden fixed top-0 left-0 right-0 h-14 bg-slate-900 border-b border-white/10 flex items-center justify-between px-4 z-50">
+      <div className={`md:hidden fixed top-0 left-0 right-0 h-14  flex items-center justify-between px-4 z-50 
+      ${darkMode ? 'bg-slate-900 border-b border-white/10' : 'bg-slate-100 border-b border-black/10'}`}>
         <div className="flex items-center gap-3 px-2 pb-6 pt-5">
           <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
             <TrendingUp size={16} className="text-white" />
           </div>
-          <span className="text-white font-semibold text-sm tracking-tight">
+          <span className={`font-semibold text-sm tracking-tight ${darkMode ? 'text-white' :'text-gray-800'}`}>
             ExpenseTracker
           </span>
         </div>
         <button onClick={() => setMenuOpen(true)}>
-          <Menu size={22} className="text-white" />
+          <Menu size={22} className={`${darkMode? 'text-white' : 'text-gray-800'}`} />
         </button>
       </div>
 
