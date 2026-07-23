@@ -46,7 +46,7 @@ function KpiCard({ title, value, sub, icon: Icon, color, progress }) {
       <p className={`text-xs ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>{sub}</p>
 
       {progress !== undefined && (
-        <div className={`h-1.5 bg-slate-700 rounded-full overflow-hidden ${darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}>
+        <div className={`h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}>
           <div
             className={`h-full rounded-full transitin-all ${progress > 90 ? "bg-red-500" : progress > 70 ? "bg-amber-500" : "bg-green-500"}`}
             style={{ width: `${Math.min(progress, 100)}%` }}

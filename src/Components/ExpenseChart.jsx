@@ -150,7 +150,7 @@ function ExpenseChart({ entries }) {
               {pieData.map((item) => (
                 <div key={item.name} className="flex items-center gap-2">
                   <span
-                    className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
+                    className="w-2.5 h-2.5 rounded-sm flex shrink-0"
                     style={{ background: COLORS[item.name] || "#B4B2A9" }}
                   />
                   <span className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-800'}`}>{item.name}</span>

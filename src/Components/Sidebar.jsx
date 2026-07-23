@@ -34,7 +34,7 @@ function Sidebar() {
       </div>
 
       {/* Menu label */}
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest px-2 mb-2">
+      <p className="text-[14px] text-slate-500 uppercase tracking-widest px-2 mb-2">
         Main Menu
       </p>
 
@@ -47,7 +47,7 @@ function Sidebar() {
               key={link.path}
               to={link.path}
               className={({ isActive }) => {
-                return `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-150
+                return `flex items-center gap-3 px-3 py-2.5 rounded-lg text-md transition-all duration-150
                  ${isActive
       ? darkMode ? 'bg-slate-800 text-white' : 'bg-indigo-50 text-indigo-600 font-medium'
       : darkMode ? 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700'

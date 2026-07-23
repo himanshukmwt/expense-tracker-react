@@ -133,7 +133,7 @@ function Budget() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
                     style={{ background: cat.color + '22' }}
                   >
                     <Icon size={16} style={{ color: cat.color }} />

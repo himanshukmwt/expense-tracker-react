@@ -49,7 +49,7 @@ function EditExpenseModal({ entry, onClose }) {
           <h2 className="text-white font-semibold text-base">Edit Transaction</h2>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-slate-400 transition-colors"
+            className="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-slate-400 transition-colors cursor-pointer"
           >
             <X size={14} />
           </button>
@@ -59,7 +59,7 @@ function EditExpenseModal({ entry, onClose }) {
         <div className="flex bg-slate-900 rounded-xl p-1 mb-5">
           <button
             onClick={() => setType('expense')}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               type === 'expense' ? 'bg-red-500/80 text-white' : 'text-slate-400'
             }`}
           >
@@ -67,7 +67,7 @@ function EditExpenseModal({ entry, onClose }) {
           </button>
           <button
             onClick={() => setType('income')}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               type === 'income' ? 'bg-green-500/80 text-white' : 'text-slate-400'
             }`}
           >
@@ -146,13 +146,13 @@ function EditExpenseModal({ entry, onClose }) {
         <div className="flex gap-3 mt-6">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:bg-slate-700 text-sm transition-all"
+            className="flex-1 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:bg-slate-700 text-sm transition-all cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="flex-1 py-2.5 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-all"
+            className="flex-1 py-2.5 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-all cursor-pointer"
           >
             Save Changes
           </button>
